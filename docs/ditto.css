@@ -1,0 +1,240 @@
+/* DITTO-X additions on top of the template's style.css. Shared by both builds. */
+
+:root {
+  --policy: #8fbc6b;        /* DITTO-X policy in control (matches the videos) */
+  --policy-manus: #ffad5a;  /* MANUS policy in control */
+  --human: #6d9eeb;         /* human in control */
+}
+
+/* ---- header / authors ---------------------------------------------------- */
+.header .header-actions { margin-left: auto; }
+.author-list .author-break { flex-basis: 100%; height: 0; }
+.affiliation-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2.4em; margin: 22px 0 0; }
+.affiliation-logos .logo-item { display: inline-flex; align-items: center; gap: .4em; text-decoration: none; }
+.affiliation-logos img { height: 30px; width: auto; display: block; opacity: .9; transition: opacity .16s ease; }
+.affiliation-logos img.logo-tall { height: 36px; }
+.affiliation-logos .logo-item:hover img { opacity: 1; }
+.affiliation-logos .logo-sup { font-size: .72em; color: #8b8b8b; font-weight: 600; align-self: flex-start; }
+.author-notes { display: flex; justify-content: center; gap: 16px; margin: 12px 0 0; font-size: 13px; color: var(--text-secondary, #6D6C69); }
+.author-notes sup { color: var(--accent); }
+.author-notes strong { font-weight: 600; }
+.anon-authors li { color: var(--muted); }
+.footer-institutions img.logo-wide { width: 160px; }
+@media (max-width: 640px) {
+  .affiliation-logos { gap: 1.3em; }
+  .affiliation-logos img { height: 24px; }
+  .affiliation-logos img.logo-tall { height: 29px; }
+}
+
+/* ---- intro ---------------------------------------------------------------- */
+.opening-context.stacked { display: block; }
+.opening-context.stacked .project-summary { max-width: 820px; margin: 0 auto; }
+.opening-context.stacked .architecture-context-figure { max-width: 820px; margin: 36px auto 0; }
+.opening-question { color: var(--ink); font-weight: 600; }
+
+/* ---- chapter 01: reverse teleoperation ------------------------------------ */
+
+.control-legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 22px 0 0; padding: 0; list-style: none; font-size: 13px; color: var(--muted); }
+.control-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.control-legend .swatch { width: 18px; height: 12px; border-radius: 3px; border: 3px solid var(--c); background: transparent; }
+.control-legend .note { flex-basis: 100%; font-size: 12px; color: var(--text-secondary, #6D6C69); }
+
+.subsection-title { margin: 52px 0 10px; }
+.compare-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 22px; }
+.compare-pair figure { margin: 0; min-width: 0; }
+.compare-pair video, .task-brief video { width: 100%; display: block; border-radius: 14px; background: #000; aspect-ratio: 16 / 9; }
+.compare-label { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-weight: 600; font-size: 15px; color: var(--ink); }
+.compare-label .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--c); }
+.compare-label .muted { font-weight: 400; color: var(--muted); }
+.compare-pair figcaption { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+.stat-footnote { margin: 10px 0 0; font-size: 12px; line-height: 1.6; color: var(--text-secondary, #6D6C69); }
+
+.task-brief .interface-chip { display: inline-flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 600; color: var(--ink); }
+.task-brief .interface-chip .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); }
+.deployment-tabs button .tab-num { font-variant-numeric: tabular-nums; color: var(--text-secondary, #6D6C69); }
+
+@media (max-width: 760px) {
+  .compare-pair, .study-charts { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- fixes against template defaults (.article p sets 17px / 20px margins) ---- */
+.research-figure > img { display: block; width: 100%; height: auto; }
+.article .chapter p.stat-footnote { font-size: 12px; line-height: 1.6; color: var(--text-secondary, #6D6C69); }
+.article .chapter p.compare-label { margin: 0 0 10px; font-size: 15px; line-height: 1.4; }
+.article .control-legend .note { line-height: 1.5; }
+.rt-figure { margin-top: 8px; }
+.rt-highlight { margin-top: 22px; }
+.rt-highlight video { width: 100%; display: block; border-radius: 16px; background: #000; aspect-ratio: 16 / 9; }
+.article .chapter .rt-highlight figcaption { margin-top: 10px; font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+/* ---- one column: everything in a chapter shares the intro's 820px text column; only the hero is wider ---- */
+.article .chapter > * { max-width: 820px; margin-left: auto; margin-right: auto; }
+.article .chapter > .subsection-title { margin-top: 52px; }
+.article .chapter p.rt-explain { margin-top: 22px; }
+.article .chapter p.stat-footnote { margin-top: 12px; }
+.article > .work-citation, .article > .acknowledgments { max-width: 820px; margin-left: auto; margin-right: auto; }
+
+/* ---- user-study charts (scripts/charts.js) ---- */
+.study-charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 26px; }
+.study-chart { position: relative; margin: 0; min-width: 0; border: 1px solid var(--line); border-radius: 18px; padding: 16px 18px 12px; background: #fcfcfb; }
+.study-chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.study-chart .chart-title { margin: 0 0 10px; font-size: 14px; font-weight: 600; color: var(--ink); }
+.study-chart .chart-title span { font-weight: 400; color: var(--muted); }
+.study-chart .row-name { font: 600 13px var(--font, inherit); fill: #2E2D29; }
+.study-chart .row-value { font: 400 13px var(--font, inherit); fill: #585754; }
+.study-chart .tick { font: 400 11px var(--font, inherit); fill: #898781; font-variant-numeric: tabular-nums; }
+.study-chart .subject circle:first-child { transition: r .12s ease, opacity .12s ease; }
+.study-chart.has-hot .subject circle:first-child { opacity: .25; }
+.study-chart .subject.is-hot circle:first-child { opacity: 1; r: 6; }
+.article .chapter .study-chart p.chart-foot { margin: 6px 0 0; font-size: 11.5px; line-height: 1.5; color: var(--text-secondary, #6D6C69); }
+.chart-tip { position: absolute; pointer-events: none; z-index: 2; padding: 7px 10px; border-radius: 8px; background: #fff; border: 1px solid rgba(11,11,11,.10); box-shadow: 0 4px 14px rgba(0,0,0,.08); font-size: 12px; line-height: 1.45; color: #2E2D29; white-space: nowrap; }
+.chart-table { margin-top: 10px; font-size: 13px; }
+.chart-table summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+.chart-table table { width: 100%; border-collapse: collapse; margin-top: 10px; font-variant-numeric: tabular-nums; }
+.chart-table th, .chart-table td { padding: 6px 8px; text-align: right; border-bottom: 1px solid var(--line); font-weight: 400; }
+.chart-table th[scope="row"], .chart-table thead tr:first-child th:first-child { text-align: left; }
+.chart-table thead th[scope="colgroup"] { text-align: center; }
+.chart-table thead th { color: var(--muted); font-size: 12px; }
+.chart-table tr.mean th, .chart-table tr.mean td { font-weight: 600; color: var(--ink); }
+@media (max-width: 760px) { .study-charts { grid-template-columns: minmax(0, 1fr); } }
+.study-chart .note-star { font: 700 13px var(--font, inherit); fill: #2E2D29; pointer-events: none; }
+.study-chart.has-hot .subject .note-star { opacity: .25; }
+.study-chart .subject.is-hot .note-star { opacity: 1; }
+.note-mark { font-weight: 700; color: var(--ink); }
+.article .chapter p.pair-intro { margin-top: 40px; }
+@media (max-width: 1439px) { .contents { max-width: 820px; } }
+/* TOC always visible on wide screens (the template hides it until the chapters scroll in) */
+.contents { visibility: visible; opacity: 1; }
+/* hero: a touch narrower than the template (1180 -> 1040) */
+.mission-recording.wide { max-width: 1040px; margin-left: auto; margin-right: auto; }
+.article .chapter > .rt-figure { max-width: 738px; } /* 90% of the 820 column */
+
+/* ---- policy charts ---- */
+.study-charts.three { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.study-charts.one { grid-template-columns: minmax(0, 1fr); }
+.study-chart.line-chart { padding: 14px 14px 10px; }
+.study-chart .end-label, .study-chart .bar-value { font: 600 11.5px var(--font, inherit); fill: #2E2D29; font-variant-numeric: tabular-nums; }
+.study-chart .bar-value { font-weight: 400; fill: #585754; }
+.chart-legend { display: flex; flex-wrap: wrap; gap: 6px 18px; list-style: none; padding: 0; margin: 18px 0 0; font-size: 13px; color: var(--muted); }
+.chart-legend li { display: inline-flex; align-items: center; gap: 7px; }
+.chart-legend .swatch-line { width: 18px; height: 3px; border-radius: 2px; background: var(--c); }
+.chart-legend .swatch { width: 12px; height: 12px; border-radius: 3px; background: var(--c); }
+.chart-legend + .study-charts { margin-top: 10px; }
+.chart-table .n { color: var(--muted); font-size: 11px; margin-left: 4px; }
+@media (max-width: 760px) { .study-charts.three { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- overview: policy gallery under the intro text ---- */
+.overview-policies { max-width: 820px; margin: 44px auto 0; text-align: left; }
+.overview-policies > .subsection-title { margin-top: 0; }
+.overview-policies > p { margin: 0 0 18px; font-size: 16px; line-height: 1.7; color: var(--muted); }
+.overview-policies .deployment-result { font-size: 16px; line-height: 1.7; margin: 20px 0; color: var(--ink); }
+
+/* Carousel: the active slide is 90% of the column, left-aligned with the text; the next slide
+   peeks into the rest and fades out at the column edge (flipped on the last slide). */
+.deployment-examples .deployment-list { gap: 20px; -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 80px), transparent 100%); mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 80px), transparent 100%); }
+.deployment-examples .deployment-list.at-end { -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 100%); mask-image: linear-gradient(90deg, transparent 0, #000 80px, #000 100%); }
+.deployment-examples .deployment-list .task-brief { flex: 0 0 90%; opacity: .45; transition: opacity .2s ease; }
+.deployment-examples .deployment-list .task-brief.is-active { opacity: 1; }
+.deployment-examples .deployment-list .task-brief:not(.is-active) { cursor: pointer; }
+
+/* Carousel slides sit directly in the column: no card frame, so video and text edges align with the page text. */
+.deployment-examples .deployment-list .task-brief { border: 0; border-radius: 0; padding: 0; background: none; margin-top: 18px; }
+.deployment-examples .task-brief video { margin-top: 14px; }
+
+/* ---- overview contributions list ---- */
+.project-summary .contributions { margin: -8px 0 0; padding: 0 0 0 1.1em; }
+.project-summary .contributions li { margin: 0 0 8px; padding-left: 4px; }
+.project-summary .contributions li:last-child { margin-bottom: 0; }
+.project-summary .contributions li::marker { color: var(--accent); }
+.nowrap { white-space: nowrap; }
+
+/* Direction terms in text, matching the reverse-teleop figure (green = reverse, blue = forward). */
+:root { --dir-reverse: #38761D; --dir-forward: #3E72C6; } /* figure: #38761D / #487CD4 (blue darkened slightly for 4.5:1 text contrast) */
+.dir-reverse { color: var(--dir-reverse); font-weight: 600; }
+.dir-forward { color: var(--dir-forward); font-weight: 600; }
+/* The template sets .project-summary strong to ink; let coloured terms keep their colour there. */
+.project-summary strong.paper-name { color: var(--accent); }
+.project-summary .dir-forward { color: var(--dir-forward); }
+.project-summary .dir-reverse { color: var(--dir-reverse); }
+
+/* ---- chapter 04: resources ---- */
+.resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
+.resource-card { border: 1px solid var(--line); border-radius: 16px; padding: 16px 18px 18px; background: #fcfcfb; display: flex; flex-direction: column; }
+.article .chapter .resource-card p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.article .chapter .resource-card p.resource-kicker { font-size: 11px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.resource-card h4 { margin: 0 0 8px; font-size: 16px; color: var(--ink); }
+.resource-status { margin-top: auto; padding-top: 14px; font-size: 12px; font-weight: 600; color: var(--text-secondary, #6D6C69); }
+.article > .work-citation { margin-top: 56px; }
+@media (max-width: 760px) { .resource-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---- chapter 04: dataset composition (palette validated: normal ΔE ≥ 18.9, protan ≥ 10.9) ---- */
+:root { --ep-teleop: #3E72C6; --ep-int: #BA89D2; --ep-auto: #5E9B44; }
+.composition { margin: 22px 0 0; }
+.composition-bar { display: flex; gap: 2px; height: 30px; }
+.composition-bar .seg { display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; min-width: 0; }
+.composition-bar .seg:first-child { border-radius: 4px 0 0 4px; }
+.composition-bar .seg:last-child { border-radius: 0 4px 4px 0; }
+.seg-teleop { background: var(--ep-teleop); color: #fff; }
+.seg-int { background: var(--ep-int); color: #2E2D29; }
+.seg-auto { background: var(--ep-auto); color: #fff; }
+.composition-legend { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; font-size: 13px; line-height: 1.5; color: var(--ink); }
+.composition-legend li { display: grid; grid-template-columns: 14px 1fr; column-gap: 8px; }
+.composition-legend .swatch { width: 12px; height: 12px; border-radius: 3px; margin-top: 4px; grid-row: span 2; }
+.composition-legend span:not(.swatch) { color: var(--muted); font-size: 12.5px; }
+.composition-legend strong { font-weight: 600; }
+.composition-table { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: 14px; font-variant-numeric: tabular-nums; }
+.composition-table th, .composition-table td { padding: 8px 10px; border-bottom: 1px solid var(--line); text-align: right; font-weight: 400; color: var(--ink); }
+.composition-table th[scope="row"], .composition-table td:nth-child(2), .composition-table thead th:nth-child(-n+2) { text-align: left; }
+.composition-table td:nth-child(2) { color: var(--muted); }
+.composition-table thead th { font-size: 12px; color: var(--muted); font-weight: 600; }
+.composition-table tr.total th, .composition-table tr.total td { font-weight: 600; border-bottom: 0; }
+@media (max-width: 760px) { .composition-legend { grid-template-columns: minmax(0, 1fr); } .composition-table { font-size: 12.5px; } .composition-table th, .composition-table td { padding: 7px 5px; } }
+.composition-row { display: flex; align-items: center; gap: 36px; }
+.composition-donut { flex: 0 0 auto; width: 220px; height: 220px; }
+.composition-donut .slice { stroke: #fff; stroke-width: 0; transition: opacity .15s; }
+.composition-donut:hover .slice { opacity: .55; }
+.composition-donut .slice:hover { opacity: 1; }
+.composition-donut .slice-label { font: 600 13px var(--font, inherit); pointer-events: none; }
+.composition-donut .donut-total { font: 600 26px var(--font, inherit); fill: #2E2D29; }
+.composition-donut .donut-sub { font: 400 12px var(--font, inherit); fill: #898781; }
+.composition-row .composition-legend { grid-template-columns: minmax(0, 1fr); gap: 16px; margin: 0; font-size: 14px; }
+@media (max-width: 760px) { .composition-row { flex-direction: column; align-items: flex-start; gap: 18px; } }
+.composition-row .composition-legend { flex: 1 1 auto; }
+.composition-legend li { grid-template-columns: 14px minmax(0, 1fr); }
+.composition-legend .swatch { grid-row: auto; }
+.composition-donut .donut-total { font-size: 26px; font-weight: 600; fill: #2E2D29; font-variant-numeric: tabular-nums; }
+.composition-donut .donut-sub { font-size: 12px; font-weight: 400; fill: #898781; }
+.composition-donut .slice-label { font-size: 13px; font-weight: 600; }
+.acro { color: var(--accent); font-weight: 700; }
+
+/* ---- hero: "watch the full video" button shown when the preview pauses ---- */
+.mission-recording { position: relative; }
+.hero-continue { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 10px; padding: 14px 22px; border: 0; border-radius: 999px; background: rgba(255,255,255,.94); color: #2E2D29; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+.hero-continue:hover { background: #fff; }
+.hero-continue:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.hero-continue-icon { font-size: 13px; color: var(--accent); }
+.hero-continue-len { font-weight: 400; color: var(--muted); font-variant-numeric: tabular-nums; }
+.hero-continue[hidden] { display: none; }
+
+/* ---- TOC: side panel on wide screens only; hidden on tablets and phones ---- */
+@media (max-width: 1439px) and (min-width: 1240px) {   /* template shows a sticky bar here; use the side panel instead */
+  .contents { position: fixed; left: 24px; top: 130px; width: 148px; max-width: none; margin: 0; padding: 0;
+              border: 0; border-radius: 0; box-shadow: none; background: #fff; visibility: visible; opacity: 1; }
+  .contents nav { display: flex; flex-direction: column; gap: 20px; padding: 0; }
+}
+@media (max-width: 1239px) { .contents { display: none !important; } }
+
+/* ---- closing section: acknowledgments + citation (public build only) ---- */
+.chapter.closing .chapter-heading h2 { font-size: 30px; }
+.article .chapter.closing > .work-citation-body { margin-top: 12px; }
+.chapter.closing .formatted-citation { color: var(--ink); }
+.chapter.closing .bibtex-heading { display: flex; align-items: center; justify-content: space-between; margin-top: 18px; }
+.article .chapter.closing .bibtex-heading p { margin: 0; font-weight: 600; font-size: 14px; color: var(--ink); }
+.article .chapter.closing > .work-citation-body { padding: 0; }
+.chapter.closing .bibtex-block { white-space: pre-wrap; overflow-wrap: anywhere; }
+.study-chart .end-label.muted { fill: #585754; font-weight: 400; }
+.chart-legend .swatch-dash { width: 18px; height: 0; border-top: 2px dashed var(--c); }
+.chart-legend .swatch-ring { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--c); background: #fcfcfb; margin-left: -12px; margin-right: 4px; }
+.study-chart .end-label { font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.study-chart .end-label.muted { font-weight: 400; }

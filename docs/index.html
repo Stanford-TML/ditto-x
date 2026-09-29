@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta content="#ffffff" name="theme-color"/>
+<meta content="DITTO-X is a hand-agnostic dexterous teleoperation exoskeleton with force and haptic feedback that also supports reverse teleoperation for fluent human intervention during policy deployment." name="description"/>
+<title>DITTO-X: Forward and Reverse Teleoperation for Dexterous Manipulation and Human Intervention</title>
+
+<link href="assets/dittox-favicon.png" rel="icon" type="image/png"/>
+<link as="font" crossorigin="" href="assets/font.woff2" rel="preload" type="font/woff2"/>
+<link href="style.css" rel="stylesheet"/>
+<link href="ditto.css" rel="stylesheet"/>
+<link as="image" fetchpriority="high" href="videos/supp-full-poster.jpg" rel="preload"/>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="header">
+<div class="header-actions">
+<span aria-label="Paper, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Paper</span>
+<span aria-label="Code, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Code</span>
+<span aria-label="Dataset, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Dataset</span>
+<span aria-label="Hardware assembly guide, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Hardware Guide</span>
+</div>
+</header>
+<main id="main">
+<section class="intro" id="overview">
+<h1><span class="paper-name">DITTO-X:</span> Forward and Reverse Teleoperation for Dexterous Manipulation and Human Intervention</h1>
+<div class="research-authorship">
+<ul aria-label="Authors" class="author-list">
+<li><a href="https://zhanpenghe.github.io/" rel="noopener noreferrer" target="_blank">Zhanpeng He</a><sup>1,*</sup></li>
+<li><a href="https://joaquinpalacios.com/" rel="noopener noreferrer" target="_blank">Joaquin Palacios</a><sup>2,*</sup></li>
+<li><a href="https://zywang-j.github.io/" rel="noopener noreferrer" target="_blank">Zhangyu Wang</a><sup>1</sup></li>
+<li><a href="https://chenhaoli.xyz/" rel="noopener noreferrer" target="_blank">Chenhao Li</a><sup>1</sup></li>
+<li><a href="https://katelynlee.github.io/" rel="noopener noreferrer" target="_blank">Katelyn Lee</a><sup>2</sup></li>
+<li aria-hidden="true" class="author-break"></li>
+<li><a href="https://www.me.columbia.edu/faculty/matei-ciocarlie" rel="noopener noreferrer" target="_blank">Matei Ciocarlie</a><sup>2,†</sup></li>
+<li><a href="https://profiles.stanford.edu/c-karen-liu" rel="noopener noreferrer" target="_blank">C. Karen Liu</a><sup>1,†</sup></li>
+<li><a href="https://jiajunwu.com/" rel="noopener noreferrer" target="_blank">Jiajun Wu</a><sup>1,†</sup></li>
+</ul>
+<div aria-label="Affiliations" class="affiliation-logos">
+<a class="logo-item" href="https://www.stanford.edu/" rel="noopener noreferrer" target="_blank"><sup class="logo-sup">1</sup><img alt="Stanford University" class="logo-tall" src="assets/logos/stanford_ditto.png"/></a>
+<a class="logo-item" href="https://www.columbia.edu/" rel="noopener noreferrer" target="_blank"><sup class="logo-sup">2</sup><img alt="Columbia University" src="assets/logos/columbia.svg"/></a>
+</div>
+<p class="author-notes"><span><sup>*</sup> <strong>Equal contribution</strong></span><span><sup>†</sup> <strong>Equal advising</strong></span></p>
+</div>
+
+</section>
+<figure class="mission-recording wide" id="mission">
+
+<video aria-label="DITTO-X supplementary video" autoplay="" class="skill-video" controls="" data-preview-end="37.6" id="hero-video" muted="" playsinline="" poster="videos/supp-full-poster.jpg" preload="auto" src="videos/supp-full.mp4"></video>
+<button class="hero-continue" hidden="" type="button"><span aria-hidden="true" class="hero-continue-icon">▶</span> Watch the full video <span class="hero-continue-len">3:00</span></button>
+</figure>
+<div class="opening-context stacked wide">
+<div class="project-summary">
+<p>Teleoperation supplies both the demonstrations that train manipulation policies and the interventions that correct them during deployment. For dexterous hands, both are limited by interfaces that close the loop through vision alone and that cannot reconcile the operator's hand with the robot's when control is transferred mid-task.</p>
+<p>We present <strong class="paper-name">DITTO-X</strong>, a <span class="acro">D</span>exterous <span class="acro">I</span>nterface for <span class="acro">T</span>ransparent <span class="acro">T</span>ele<span class="acro">O</span>peration with different robotic hands <span class="nowrap">(<span class="acro">X</span> ∈ {Sharpa Wave, Wuji 2, Inspire})</span> without per-hand redesign. Because it is an actuated exoskeleton, DITTO-X works in both directions: in <span class="dir-forward">forward teleoperation</span> the operator drives the robot, and in <span class="dir-reverse">reverse teleoperation</span> the robot drives the operator's fingers to match its own configuration. This enables:</p>
+<ul class="contributions">
+<li><strong class="dir-forward">Forward teleoperation</strong> <strong>with force and haptic feedback</strong> for high-quality data collection across diverse dexterous hands, yielding stronger policies for contact-rich manipulation.</li>
+<li><strong class="dir-reverse">Reverse teleoperation</strong> <strong>for fluent human intervention</strong>, whose corrections make DAgger effective at improving deployed policies.</li>
+</ul>
+</div>
+<div class="overview-policies">
+<h3 class="subsection-title">Autonomous Policies Across Three Hands</h3>
+<p>Unedited rollouts of diffusion policies trained on DITTO-X demonstrations, shown at real-time speed <strong>(1x)</strong>.</p>
+<div aria-label="Autonomous policy rollouts" aria-roledescription="carousel" class="deployment-examples" data-carousel="" role="region">
+<div class="deployment-browser">
+<div aria-label="Choose a task" class="deployment-tabs" role="group">
+<button aria-pressed="true" type="button"><span class="tab-num">01</span> <span>Battery insertion</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">02</span> <span>Tong use</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">03</span> <span>Raspberry in a bowl</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">04</span> <span>Cube in a drawer</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">05</span> <span>Toy pick-and-place</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">06</span> <span>Bunny lifting</span></button>
+</div>
+<div class="deployment-arrows">
+<button aria-label="Previous task" data-prev="" type="button">←</button>
+<output aria-live="polite">1 / 6</output>
+<button aria-label="Next task" data-next="" type="button">→</button>
+</div>
+</div>
+<div aria-label="6 tasks. Swipe or use the left and right arrow keys." class="deployment-list" tabindex="0">
+<article aria-label="1 of 6: Battery insertion" aria-roledescription="slide" class="task-brief is-active" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Sharpa Wave</span>
+<h3>Battery insertion</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Battery insertion" controls="" muted="" playsinline="" poster="videos/policy-battery-poster.jpg" preload="none" src="videos/policy-battery.mp4"></video>
+<p class="deployment-result">The robot grasps a battery and inserts it into a holder with a single hand. Insertion compresses a spring contact, requiring force along a specific direction while the grasp is maintained.</p>
+<ul aria-label="Task features" class="task-tags"><li>Forceful insertion</li><li>In-hand dexterity under load</li></ul>
+</article>
+<article aria-label="2 of 6: Tong use" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Sharpa Wave</span>
+<h3>Tong use</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Tong use" controls="" muted="" playsinline="" poster="videos/policy-tong-poster.jpg" preload="none" src="videos/policy-tong.mp4"></video>
+<p class="deployment-result">The robot grasps a pair of tongs, uses them to pick up a toy, places the toy at a target location and returns the tongs. Because the tool aperture is controlled through sustained grip force, the policy must release the toy without dropping the tongs.</p>
+<ul aria-label="Task features" class="task-tags"><li>Tool use</li><li>Sustained grip force</li></ul>
+</article>
+<article aria-label="3 of 6: Raspberry" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Sharpa Wave</span>
+<h3>Raspberry in a bowl</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Raspberry" controls="" muted="" playsinline="" poster="videos/policy-raspberry-poster.jpg" preload="none" src="videos/policy-raspberry.mp4"></video>
+<p class="deployment-result">The robot grasps a raspberry and places it in a glass bowl. The raspberry is crushed under modest force, so grip force must be regulated near the lower limit of a stable grasp.</p>
+<ul aria-label="Task features" class="task-tags"><li>Fragile object</li><li>Grip regulation</li></ul>
+</article>
+<article aria-label="4 of 6: Cube in a drawer" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Wuji 2</span>
+<h3>Cube in a drawer</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Cube in a drawer" controls="" muted="" playsinline="" poster="videos/policy-drawer-poster.jpg" preload="none" src="videos/policy-drawer.mp4"></video>
+<p class="deployment-result">A single episode recruits three grasp types: the middle through little fingers hook the drawer open, the thumb and index finger pinch the cube, and the hand closes the drawer as a fist.</p>
+<ul aria-label="Task features" class="task-tags"><li>Grasp switching</li><li>Coupled fingers</li></ul>
+</article>
+<article aria-label="5 of 6: Toy pick-and-place" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Wuji 2</span>
+<h3>Toy pick-and-place</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Toy pick-and-place" controls="" muted="" playsinline="" poster="videos/policy-toy-poster.jpg" preload="none" src="videos/policy-toy.mp4"></video>
+<p class="deployment-result">The robot picks up a toy and places it in a basket.</p>
+<ul aria-label="Task features" class="task-tags"><li>Pick-and-place</li></ul>
+</article>
+<article aria-label="6 of 6: Bunny lifting" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>Inspire RH56DFX</span>
+<h3>Bunny lifting</h3>
+</div>
+<video aria-label="Autonomous policy rollout: Bunny lifting" controls="" muted="" playsinline="" poster="videos/policy-bunny-poster.jpg" preload="none" src="videos/policy-bunny.mp4"></video>
+<p class="deployment-result">The robot lifts a soft toy with the Inspire hand, which has six actuated degrees of freedom.</p>
+<ul aria-label="Task features" class="task-tags"><li>6-DoF hand</li><li>Soft object</li></ul>
+</article>
+</div>
+</div>
+</div>
+</div>
+<div class="article-layout">
+<aside aria-label="On this page" class="contents">
+<nav id="chapter-links">
+<a href="#overview"><span>00</span>Overview</a>
+<a href="#reverse"><span>01</span>Reverse Teleoperation</a>
+<a href="#forward"><span>02</span>Forward Teleoperation</a>
+<a href="#dagger"><span>03</span>DAgger with DITTO-X</a>
+<a href="#dataset"><span>04</span>DITTO-Human Dataset</a>
+<a href="#acknowledgments"><span>·</span>Acknowledgments &amp; Citation</a>
+</nav>
+</aside>
+<div class="article">
+<section class="chapter" id="reverse">
+<div class="chapter-heading">
+<span class="chapter-number">01</span>
+<h2>Reverse Teleoperation for Fluent Human Intervention</h2>
+</div>
+<figure class="figure-slot research-figure rt-figure">
+<img alt="Reverse teleoperation during a tong-use rollout: while the policy acts, DITTO-X drives the operator's hand to match the robot (reverse); the operator intervenes at t = 25 s (forward) and hands back, and the states stay matched throughout." decoding="async" height="961" loading="lazy" src="figures/teaser-rt.webp" width="2400"/>
+</figure>
+<p class="rt-explain">DITTO-X is actuated, so it can run in both directions. In <span class="dir-forward">forward teleoperation</span> the human drives the robot. In <span class="dir-reverse">reverse teleoperation</span> the robot drives the human: the policy's commanded hand configuration is projected onto the exoskeleton, which moves the operator's fingers to match. When the grasp needs a correction, the operator takes over from exactly where the robot is, then hands control back.</p>
+<figure class="rt-highlight">
+<video aria-label="Reverse teleoperation walkthrough: DITTO-X moves the operator's hand into the robot's pose, follows the policy, and the operator takes over" controls="" playsinline="" poster="videos/rt-concept-poster.jpg" preload="none" src="videos/rt-concept.mp4"></video>
+</figure>
+<ul aria-label="How to read the videos" class="control-legend">
+<li style="--c: var(--policy)"><span class="swatch"></span>DITTO-X policy in control</li>
+<li style="--c: var(--policy-manus)"><span class="swatch"></span>MANUS policy in control</li>
+<li style="--c: var(--human)"><span class="swatch"></span>Human in control</li>
+<li class="note">Each video shows the robot's wrist and scene cameras (left) and the operator (right). The bar along the bottom is the episode's control timeline.</li>
+</ul>
+<h3 class="subsection-title">Does reverse teleoperation matter in dexterous human intervention?</h3>
+<p>We deploy a tong-use policy trained on DITTO-X demonstrations and ask subjects to take over once the robot has grasped the tongs, completing the remainder of the task: using the tongs to pick up a toy and placing it at the target location. We compare DITTO-X with MANUS, a commercial hand-tracking glove that provides no feedback and cannot actuate the operator's hand. An episode in which the tool is dropped is counted as a failure, since recovery requires resetting the scene.</p>
+<div class="compare-pair">
+<figure>
+<p class="compare-label" style="--c: var(--policy)"><span class="dot"></span>DITTO-X <span class="muted">· reverse teleoperation</span></p>
+<video aria-label="DITTO-X: intervening on the tong policy with reverse teleoperation" controls="" muted="" playsinline="" poster="videos/rt-ditto-tong-poster.jpg" preload="none" src="videos/rt-ditto-tong.mp4"></video>
+<figcaption>Before the policy starts, the exoskeleton moves the operator's hand into the initial configuration of the robot hand and then tracks the policy. The operator intervenes twice, first to stabilize the grasp and then to adjust the placement, and returns control after each intervention without dropping the tongs.</figcaption>
+</figure>
+<figure>
+<p class="compare-label" style="--c: var(--policy-manus)"><span class="dot"></span>MANUS <span class="muted">· baseline, no reverse teleoperation</span></p>
+<video aria-label="MANUS: intervening on the tong policy without reverse teleoperation" controls="" muted="" playsinline="" poster="videos/rt-manus-tong-poster.jpg" preload="none" src="videos/rt-manus-tong.mp4"></video>
+<figcaption>Because the glove cannot actuate the operator's hand, the robot hand moves discontinuously from the policy's configuration to the operator's at takeover. The grasp on the tongs becomes unstable, and the tool is eventually dropped.</figcaption>
+</figure>
+</div>
+<div aria-label="User study: intervening on a tong-use policy" class="study-charts" data-note-subject="S3" role="group">
+<figure class="study-chart" data-metric="success" data-scale="pct" data-study="intervention" data-title="Success rate with intervention"></figure>
+<figure class="study-chart" data-metric="time" data-scale="sec" data-study="intervention" data-title="Time per success with intervention"></figure>
+</div>
+<p class="stat-footnote">User study with n = 6 subjects and ten trials per interface. Each trial begins once the policy has grasped the tongs, and episodes in which the tool is dropped are counted as failures. Hovering over a point highlights the same subject in both charts. <span class="note-mark">*</span> S3 had more than 20 hours of prior experience operating the Sharpa hand with MANUS and no prior exposure to DITTO-X.</p>
+<details class="chart-table" data-metrics="success:pct:Success rate,time:sec:Time per success" data-note-subject="S3" data-study="intervention">
+<summary>Show data</summary>
+<div class="chart-table-body"></div>
+</details>
+<p class="pair-intro">We show the same comparison on a fragile object, in which the policy grasps a raspberry and the operator takes over to place it in a glass bowl.</p>
+<div class="compare-pair">
+<figure>
+<p class="compare-label" style="--c: var(--policy)"><span class="dot"></span>DITTO-X <span class="muted">· reverse teleoperation</span></p>
+<video aria-label="DITTO-X raspberry placement with human intervention" controls="" muted="" playsinline="" poster="videos/rt-ditto-raspberry-poster.jpg" preload="none" src="videos/rt-ditto-raspberry.mp4"></video>
+<figcaption>The operator takes over for the placement and then returns control to the policy. The raspberry remains intact through both handoffs.</figcaption>
+</figure>
+<figure>
+<p class="compare-label" style="--c: var(--policy-manus)"><span class="dot"></span>MANUS <span class="muted">· baseline, no reverse teleoperation</span></p>
+<video aria-label="Two MANUS raspberry takeovers" controls="" muted="" playsinline="" poster="videos/rt-manus-raspberry-poster.jpg" preload="none" src="videos/rt-manus-raspberry.mp4"></video>
+<figcaption>Two MANUS interventions shown side by side. Without a matched hand configuration or force feedback, the raspberry is crushed in one episode and dropped in the other.</figcaption>
+</figure>
+</div>
+<h3 class="subsection-title">Additional Intervention Episodes</h3>
+<p>Complete, unedited episodes from further evaluation runs. The full set of human-intervened episodes is released as part of the <a href="#dataset">DITTO-Human Dataset</a>.</p>
+<div aria-label="More intervention episodes" aria-roledescription="carousel" class="deployment-examples" data-carousel="" role="region">
+<div class="deployment-browser">
+<div aria-label="Choose an episode" class="deployment-tabs" role="group">
+<button aria-pressed="true" type="button"><span class="tab-num">01</span> <span>Battery</span></button>
+<button aria-pressed="false" type="button"><span class="tab-num">02</span> <span>MANUS · Tong</span></button>
+</div>
+<div class="deployment-arrows">
+<button aria-label="Previous episode" data-prev="" type="button">←</button>
+<output aria-live="polite">1 / 2</output>
+<button aria-label="Next episode" data-next="" type="button">→</button>
+</div>
+</div>
+<div aria-label="Two episodes. Swipe or use the left and right arrow keys." class="deployment-list" tabindex="0">
+<article aria-label="1 of 2: Battery insertion" aria-roledescription="slide" class="task-brief is-active" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy)"><span class="dot"></span>DITTO-X</span>
+<h3>Recovery from a Slipped Battery</h3>
+</div>
+<video aria-label="DITTO-X battery insertion episode with human intervention" controls="" muted="" playsinline="" poster="videos/rt-ditto-battery-poster.jpg" preload="none" src="videos/rt-ditto-battery.mp4"></video>
+<p class="deployment-result">The battery slips from the hand during the policy's approach. The operator takes over, regrasps the battery and seats it in the holder, then returns control, and the policy completes the insertion autonomously.</p>
+<ul aria-label="Episode features" class="task-tags"><li>Sharpa hand</li><li>Forceful insertion</li><li>Recovery from a slip</li><li>Policy finishes the task</li></ul>
+</article>
+<article aria-label="2 of 2: MANUS tong" aria-roledescription="slide" class="task-brief" role="group">
+<div class="task-brief-head">
+<span class="interface-chip" style="--c: var(--policy-manus)"><span class="dot"></span>MANUS baseline</span>
+<h3>Tong Use with MANUS</h3>
+</div>
+<video aria-label="MANUS tong episode with human intervention" controls="" muted="" playsinline="" poster="videos/rt-manus-tong-2-poster.jpg" preload="none" src="videos/rt-manus-tong-2.mp4"></video>
+<p class="deployment-result">A second MANUS intervention on the tong task. The operator's hand configuration does not match that of the robot hand at takeover, and the episode fails.</p>
+<ul aria-label="Episode features" class="task-tags"><li>Sharpa hand</li><li>Tool use</li><li>Discontinuous takeover</li></ul>
+</article>
+</div>
+</div>
+</section>
+<section class="chapter" id="forward">
+<div class="chapter-heading">
+<span class="chapter-number">02</span>
+<h2>Forward Teleoperation for Learning Dexterous and Contact-rich Manipulation</h2>
+</div>
+<p>In forward teleoperation, the operator commands the robot hand directly. DITTO-X maps the operator's finger motion to each target hand through a direct joint correspondence where the kinematics permit, and through fingertip retargeting otherwise. Feedback is rendered through two channels: sustained joint-level torque, estimated from the target hand's motor current or tactile sensing, and vibrotactile cues at the fingertips on contact onset.</p>
+<h3 class="subsection-title">Contact Perception Without Vision</h3>
+<p>With their eyes closed, subjects closed the Sharpa hand on an object and identified it from the rendered feedback alone. In the size task, the object was one of three cylinders (30, 50 or 70 mm in diameter); in the compliance task, it was a soft object, a rigid object, or no object. Each subject completed six trials per task under three conditions: full feedback, force feedback only, and vibrotactile feedback only.</p>
+<div aria-label="User study: identifying objects without vision" class="study-charts" role="group">
+<figure class="study-chart" data-metric="size" data-scale="pct" data-study="feedback" data-title="Size identification"></figure>
+<figure class="study-chart" data-metric="compliance" data-scale="pct" data-study="feedback" data-title="Compliance identification"></figure>
+</div>
+<p class="stat-footnote">n = 6 subjects; chance level is 33.3%. Removing either channel reduces size identification to 61.1%, whereas compliance identification depends primarily on force feedback (80.6% with force only, 47.2% with vibrotactile only).</p>
+<details class="chart-table" data-metrics="size:pct:Size,compliance:pct:Compliance" data-study="feedback">
+<summary>Show data</summary>
+<div class="chart-table-body"></div>
+</details>
+<h3 class="subsection-title">Demonstration Collection</h3>
+<p>Subjects collected complete tong-use demonstrations with each interface: grasping a pair of tongs, using them to pick up a toy, and placing the toy at a target location without dropping the tool. Each subject performed ten trials per interface.</p>
+<div aria-label="User study: collecting tong-use demonstrations" class="study-charts" data-note-subject="S3" role="group">
+<figure class="study-chart" data-metric="success" data-scale="pct" data-study="collection" data-title="Success rate, data collection"></figure>
+<figure class="study-chart" data-metric="time" data-scale="sec" data-study="collection" data-title="Time per success, data collection"></figure>
+</div>
+<p class="stat-footnote">n = 6 subjects. DITTO-X yielded a higher success rate than MANUS for all six subjects. <span class="note-mark">*</span> S3 had more than 20 hours of prior experience operating the Sharpa hand with MANUS and no prior exposure to DITTO-X.</p>
+<details class="chart-table" data-metrics="success:pct:Success rate,time:sec:Time per success" data-note-subject="S3" data-study="collection">
+<summary>Show data</summary>
+<div class="chart-table-body"></div>
+</details>
+<h3 class="subsection-title">Data Collection by a Proficient Operator</h3>
+<p>For reference, we report the success rate of the operator who collected all policy-training data. This operator is proficient with both interfaces and distinct from the six novices in the user study. An attempt counts as successful when it produces a usable trajectory for training.</p>
+<ul aria-label="Legend" class="chart-legend">
+<li style="--c: #A8334A"><span class="swatch"></span>DITTO-X</li>
+<li style="--c: #A8A49C"><span class="swatch"></span>MANUS</li>
+</ul>
+<div class="study-charts one">
+<figure class="study-chart" data-kind="proficient" data-title="Collection success rate, proficient operator"></figure>
+</div>
+<p class="stat-footnote">Attempts pooled over tong, raspberry and battery. As with the novice subjects, the gap between interfaces widens during intervention, suggesting that the advantage of DITTO-X does not diminish with familiarity.</p>
+<h3 class="subsection-title">Effect of Demonstration Source on Policy Behavior</h3>
+<p>Tong-use policies trained on DITTO-X and on MANUS demonstrations, shown side by side and temporally aligned at the moment the tongs reach the toy.</p>
+<figure class="rt-highlight">
+<video aria-label="Tong-use policies trained on DITTO-X and MANUS demonstrations, side by side" controls="" muted="" playsinline="" poster="videos/policy-tong-compare-poster.jpg" preload="none" src="videos/policy-tong-compare.mp4"></video>
+</figure>
+<p class="rt-explain">When the tongs contact the toy, the DITTO-X policy maintains a stable grasp on the tool, whereas the grasp of the MANUS policy is displaced by the collision. Over 30 evaluation rollouts, the pretrained policies succeed in 63.3% and 13.3% of trials, respectively.</p>
+</section>
+<section class="chapter" id="dagger">
+<div class="chapter-heading">
+<span class="chapter-number">03</span>
+<h2>DAgger with DITTO-X</h2>
+</div>
+<p>Interventions collected during deployment can be aggregated to improve the policy (DAgger; Ross et al., 2011). For each task and interface, we ran two rounds of DAgger with 20 intervention trajectories per round. Each round began with a full evaluation of the current policy; the operator then intervened at their discretion during deployment, successful interventions were added to the training set, and the policy was fine-tuned for 10 epochs. All DITTO-X interventions were collected with reverse teleoperation, and each interface supplied interventions only to its own policy.</p>
+<h3 class="subsection-title">Correcting an Out-of-Distribution Failure</h3>
+<p>An evaluation episode in which the bowl lies outside the placements seen during pretraining. The sequence shows the failure of the pretrained policy, interventions with MANUS and with DITTO-X, and a rollout of the policy after DAgger fine-tuning.</p>
+<figure class="rt-highlight">
+<video aria-label="Raspberry: policy failure, MANUS intervention, DITTO-X intervention, and the DAgger fine-tuned policy" controls="" muted="" playsinline="" poster="videos/dagger-story-poster.jpg" preload="none" src="videos/dagger-story.mp4"></video>
+</figure>
+<div class="compare-pair">
+<figure>
+<p class="compare-label" style="--c: #898781"><span class="dot"></span>Before DAgger <span class="muted">· pretrained policy</span></p>
+<video aria-label="Pretrained policy on an out-of-distribution bowl placement" controls="" muted="" playsinline="" poster="videos/dagger-before-poster.jpg" preload="none" src="videos/dagger-before.mp4"></video>
+<figcaption>Pretrained policy: the raspberry is carried toward the lid rather than the bowl.</figcaption>
+</figure>
+<figure>
+<p class="compare-label" style="--c: var(--policy)"><span class="dot"></span>After DAgger <span class="muted">· round 2, DITTO-X corrections</span></p>
+<video aria-label="DAgger fine-tuned policy on the same out-of-distribution bowl placement" controls="" muted="" playsinline="" poster="videos/dagger-after-poster.jpg" preload="none" src="videos/dagger-after.mp4"></video>
+<figcaption>After two rounds of DAgger, from the same initial configuration, the raspberry is placed in the bowl.</figcaption>
+</figure>
+</div>
+<h3 class="subsection-title">Policy Success Across DAgger Rounds</h3>
+<p>Success rates over 30 evaluation rollouts per policy from paired initial conditions, of which at least 10 lie outside the pretraining distribution of object placements. To separate the effect of iterative correction from that of additional data, we also trained a DITTO-X policy on the same number of demonstrations as DAgger round 2 (120 for tong; 100 for raspberry and battery), collected non-iteratively from the original task distribution.</p>
+<ul aria-label="Legend" class="chart-legend">
+<li style="--c: #A8334A"><span class="swatch-line"></span>DITTO-X, DAgger</li>
+<li style="--c: #A8A49C"><span class="swatch-line"></span>MANUS, DAgger</li>
+<li style="--c: #84817C"><span class="swatch-dash"></span><span class="swatch-ring"></span>DITTO-X, quantity-matched (no DAgger)</li>
+</ul>
+<div aria-label="Policy success rate across DAgger rounds" class="study-charts three" role="group">
+<figure class="study-chart line-chart" data-kind="rounds" data-task="Tong"></figure>
+<figure class="study-chart line-chart" data-kind="rounds" data-task="Raspberry"></figure>
+<figure class="study-chart line-chart" data-kind="rounds" data-task="Battery"></figure>
+</div>
+<p class="stat-footnote">DITTO-X policies improve monotonically on all three tasks, while MANUS policies improve after the first round and decline after the second on tong and raspberry. We attribute this to the handoff: an intervention that begins from a mismatched hand pose perturbs the grasp before recovering it, and this trajectory becomes a training target. The quantity-matched policy falls short of DAgger on all three tasks and, on battery, does not improve on the pretrained policy (36.7% vs. 40.0%): additional demonstrations from the original distribution do not cover the states in which the policy fails, whereas corrections collected at those states do.</p>
+<details class="chart-table" data-kind="policy">
+<summary>Show data</summary>
+<div class="chart-table-body"></div>
+</details>
+</section>
+<section class="chapter" id="dataset">
+<div class="chapter-heading">
+<span class="chapter-number">04</span>
+<h2>DITTO-Human Dataset</h2>
+</div>
+<p>We release all episodes collected in this work as the DITTO-Human Dataset. The name follows DITTO-X, in which X denotes the hand that DITTO drives: in reverse teleoperation, DITTO drives the human hand, so X = Human. The dataset contains 1,888 episodes, more than 16 hours of trajectories recorded at 30 Hz, across six tasks and three dexterous hands.</p>
+<figure aria-label="Dataset composition" class="composition">
+<div class="composition-row">
+<svg aria-label="847 fully teleoperated, 379 human-intervened and 662 fully autonomous episodes, 1,888 in total" class="composition-donut" height="220" role="img" viewbox="0 0 220 220" width="220">
+<path class="slice" d="M110.60,10.00 A100,100 0 0 1 142.29,204.64 L130.02,168.68 A62,62 0 0 0 110.37,48.00 Z" fill="var(--ep-teleop)"><title>Fully teleoperated: 847 episodes (44.9%)</title></path>
+<text class="slice-label" fill="#fff" text-anchor="middle" x="189.9" y="102.0">45%</text>
+<path class="slice" d="M141.15,205.02 A100,100 0 0 1 29.69,169.58 L60.21,146.94 A62,62 0 0 0 129.32,168.91 Z" fill="var(--ep-int)"><title>Human-intervened: 379 episodes (20.1%)</title></path>
+<text class="slice-label" fill="#2E2D29" text-anchor="middle" x="85.5" y="192.2">20%</text>
+<path class="slice" d="M28.98,168.62 A100,100 0 0 1 109.40,10.00 L109.63,48.00 A62,62 0 0 0 59.77,146.34 Z" fill="var(--ep-auto)"><title>Fully autonomous: 662 episodes (35.1%)</title></path>
+<text class="slice-label" fill="#fff" text-anchor="middle" x="37.8" y="78.4">35%</text>
+<text class="donut-total" text-anchor="middle" x="110" y="108">1,888</text>
+<text class="donut-sub" text-anchor="middle" x="110" y="128">episodes</text>
+</svg>
+<ul class="composition-legend">
+<li><span class="swatch seg-teleop"></span><div><strong>Fully teleoperated</strong> · 847 (44.9%)<br/><span>Demonstrations collected by forward teleoperation</span></div></li>
+<li><span class="swatch seg-int"></span><div><strong>Human-intervened</strong> · 379 (20.1%)<br/><span>Policy rollouts with human takeover, used for DAgger</span></div></li>
+<li><span class="swatch seg-auto"></span><div><strong>Fully autonomous</strong> · 662 (35.1%)<br/><span>Policy evaluation rollouts without intervention</span></div></li>
+</ul>
+</div>
+</figure>
+<p class="stat-footnote">Battery insertion, raspberry and tong use on Sharpa Wave; cube in a drawer and toy pick-and-place on Wuji 2; bunny lifting on Inspire. Counts include episodes collected with both DITTO-X and MANUS, and both successful and failed episodes.</p>
+</section>
+<section class="chapter closing" id="acknowledgments">
+<div class="chapter-heading">
+<h2>Acknowledgments</h2>
+</div>
+<p>We thank <a href="https://doublehan07.github.io/" rel="noopener noreferrer" target="_blank">Han Zhang</a>, <a href="https://mengdaxu.github.io/" rel="noopener noreferrer" target="_blank">Mengda Xu</a>, <a href="https://ericcsr.github.io/" rel="noopener noreferrer" target="_blank">Sirui Chen</a> and <a href="https://www.sartk.com/" rel="noopener noreferrer" target="_blank">Sarthak Kamat</a> for insightful discussions and valuable feedback throughout this work. We also thank <a href="https://www.sharpa.com/" rel="noopener noreferrer" target="_blank">Sharpa Robotics</a> for their equipment donation.</p>
+<h3 class="subsection-title" id="citation">Cite This Work</h3>
+<div class="work-citation-body">
+<p class="formatted-citation">Zhanpeng He, Joaquin Palacios, Zhangyu Wang, Chenhao Li, Katelyn Lee, Matei Ciocarlie, C. Karen Liu, and Jiajun Wu. “Forward and Reverse Teleoperation for Dexterous Manipulation and Human Intervention.” 2026.</p>
+<div class="bibtex-heading"><p>BibTeX</p><button aria-label="Copy DITTO-X BibTeX citation" class="copy-bibtex" type="button">Copy BibTeX</button></div>
+<pre aria-label="DITTO-X BibTeX citation" class="bibtex-block" tabindex="0"><code id="dittox-bibtex">@misc{he2026dittox,
+  author = {He, Zhanpeng and Palacios, Joaquin and Wang, Zhangyu and Li, Chenhao and Lee, Katelyn and Ciocarlie, Matei and Liu, C. Karen and Wu, Jiajun},
+  title = {Forward and Reverse Teleoperation for Dexterous Manipulation and Human Intervention},
+  year = {2026},
+  url = {https://tml.stanford.edu/ditto-x/}
+}</code></pre>
+<span aria-live="polite" class="copy-citation-status" role="status"></span>
+</div>
+</section>
+</div>
+</div>
+</main>
+<footer class="research-footer wide">
+<div aria-label="Author institutions" class="footer-institutions">
+<a href="https://www.stanford.edu/" rel="noopener" target="_blank"><img alt="Stanford" decoding="async" height="91" loading="lazy" src="assets/stanford-wordmark.webp" width="426"/></a>
+<a href="https://www.columbia.edu/" rel="noopener" target="_blank"><img alt="Columbia University" class="logo-wide" decoding="async" height="55" loading="lazy" src="assets/logos/columbia.svg" width="357"/></a>
+</div>
+<a href="#">Back to top ↑</a>
+</footer>
+<script src="scripts/site.js" type="module"></script>
+<script src="scripts/charts.js" type="module"></script>
+</body>
+</html>
