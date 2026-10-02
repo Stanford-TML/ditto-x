@@ -19,6 +19,9 @@
   <a href="https://tml.stanford.edu/ditto-x/">
     <img src="https://img.shields.io/badge/Project_Page-8C1515?style=for-the-badge" alt="Project Page">
   </a>
+  <a href="https://arxiv.org/abs/2610.00781">
+    <img src="https://img.shields.io/badge/arXiv-2610.00781-b31b1b?style=for-the-badge" alt="arXiv">
+  </a>
 </p>
 
 <p align="center">Code, hardware guide and the DITTO-Human Dataset coming soon.</p>

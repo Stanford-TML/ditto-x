@@ -232,11 +232,15 @@ function renderRounds(fig) {
     el("text", { x: xs[i], y: H - 6, "text-anchor": "middle", class: "tick" }, svg).textContent = st;
   });
   const tip = tipper(fig, cs, head);
+  // Optional build-up for slides (unused on the site): data-upto="N" shows only the first N steps,
+  // data-qty="off" hides the quantity-matched baseline. Axes stay identical so frames line up.
+  const upto = Math.min(block.steps.length, +(fig.dataset.upto || block.steps.length));
+  const showQty = fig.dataset.qty !== "off" && upto === block.steps.length;
   // MANUS first so DITTO-X draws on top.
   for (const s of [...task.series].reverse()) {
     const c = COLOR[s.key];
-    el("polyline", { points: s.values.map((v, i) => `${xs[i]},${y(v)}`).join(" "), fill: "none", stroke: c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
-    s.values.forEach((v, i) => {
+    if (upto > 1) el("polyline", { points: s.values.slice(0, upto).map((v, i) => `${xs[i]},${y(v)}`).join(" "), fill: "none", stroke: c, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+    s.values.slice(0, upto).forEach((v, i) => {
       el("circle", { cx: xs[i], cy: y(v), r: 4.5, fill: c, stroke: "#fcfcfb", "stroke-width": 2 }, svg);
       const hit = el("circle", { cx: xs[i], cy: y(v), r: 12, fill: "transparent" }, svg);
       hit.addEventListener("pointerenter", () => tip.show(`<strong>${s.label}</strong> · ${block.steps[i]}<br>${pctFmt(v)} (${countFmt(s.counts[i])} rollouts)`, xs[i], y(v), W));
@@ -247,9 +251,9 @@ function renderRounds(fig) {
   // Quantity-matched DITTO-X baseline: same data budget as round 2, collected without DAgger.
   // Drawn as a dashed line from the DITTO-X pretrain point to a hollow marker at round 2.
   const q = POLICY.quantity.tasks.find((t) => t.task === task.task);
-  const last = block.steps.length - 1;
+  const last = upto - 1;
   const ditto = task.series.find((s) => s.key === "ditto");
-  if (q) {
+  if (q && showQty) {
     const qv = q.values[1];
     el("line", { x1: xs[0], y1: y(ditto.values[0]), x2: xs[last], y2: y(qv), stroke: Q_COLOR.qty, "stroke-width": 1.5, "stroke-dasharray": "4 3" }, svg);
     el("circle", { cx: xs[last], cy: y(qv), r: 4.5, fill: "#fcfcfb", stroke: Q_COLOR.qty, "stroke-width": 2 }, svg);
@@ -260,7 +264,7 @@ function renderRounds(fig) {
 
   // End labels at round 2, nudged apart so they never overlap (min 15px).
   const ends = task.series.map((s) => ({ v: s.values[last], y: y(s.values[last]) }));
-  if (q) ends.push({ v: q.values[1], y: y(q.values[1]), muted: true });
+  if (q && showQty) ends.push({ v: q.values[1], y: y(q.values[1]), muted: true });
   ends.sort((a, b) => a.y - b.y);
   for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 15) ends[i].y = ends[i - 1].y + 15;
   for (const e of ends) el("text", { x: xs[last] + 9, y: e.y + 4, class: e.muted ? "end-label muted" : "end-label" }, svg).textContent = pctFmt(e.v);
