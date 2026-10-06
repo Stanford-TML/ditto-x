@@ -161,8 +161,8 @@
 .project-summary .dir-reverse { color: var(--dir-reverse); }
 /* In-text citation, e.g. "DITTO¹", with the reference as a sidenote in the right margin (blog style).
    Below 1400px there is no margin to hold it, so the note and its number hide and the underlined link carries the reference. */
-.chapter a.cite, .project-summary a.cite { color: inherit; text-decoration: underline dashed; text-decoration-color: #9a9894; text-decoration-thickness: 1px; text-underline-offset: 4px; }
-.chapter a.cite:hover, .project-summary a.cite:hover { text-decoration-color: currentColor; }
+.chapter a.cite, .project-summary a.cite, #acknowledgments > p a, .formatted-citation a { color: inherit; text-decoration: underline dashed; text-decoration-color: #9a9894; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.chapter a.cite:hover, .project-summary a.cite:hover, #acknowledgments > p a:hover, .formatted-citation a:hover { text-decoration-color: currentColor; }
 .project-summary sup.cite-num { color: var(--muted); font-size: .7em; line-height: 0; margin-left: 1px; }
 .project-summary { position: relative; }
 .project-summary .sidenote { float: right; clear: right; width: 200px; margin: 4px -285px 0 0; position: relative;
