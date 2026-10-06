@@ -23,6 +23,7 @@
 <span aria-label="Code, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Code</span>
 <span aria-label="Dataset, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Dataset</span>
 <span aria-label="Hardware assembly guide, coming soon!" class="pill is-pending" data-tip="Coming soon!" tabindex="0">Hardware Guide</span>
+<a class="pill pill-prev" href="https://roamlab.github.io/ditto/" rel="noopener noreferrer" target="_blank">DITTO v1</a>
 </div>
 </header>
 <main id="main">
@@ -56,10 +57,10 @@
 <div class="opening-context stacked wide">
 <div class="project-summary">
 <p>Teleoperation supplies both the demonstrations that train manipulation policies and the interventions that correct them during deployment. For dexterous hands, both are limited by interfaces that close the loop through vision alone and that cannot reconcile the operator's hand with the robot's when control is transferred mid-task.</p>
-<p>We present <strong class="paper-name">DITTO-X</strong>, a <span class="acro">D</span>exterous <span class="acro">I</span>nterface for <span class="acro">T</span>ransparent <span class="acro">T</span>ele<span class="acro">O</span>peration with different robotic hands <span class="nowrap">(<span class="acro">X</span> ∈ {Sharpa Wave, Wuji 2, Inspire})</span> without per-hand redesign. Because it is an actuated exoskeleton, DITTO-X works in both directions: in <span class="dir-forward">forward teleoperation</span> the operator drives the robot, and in <span class="dir-reverse">reverse teleoperation</span> the robot drives the operator's fingers to match its own configuration. This enables:</p>
+<p>We present <strong class="paper-name">DITTO-X</strong>, a <span class="acro">D</span>exterous <span class="acro">I</span>nterface for <span class="acro">T</span>ransparent <span class="acro">T</span>ele<span class="acro">O</span>peration with different robotic hands <span class="nowrap">(<span class="acro">X</span> ∈ {Sharpa Wave, Wuji 2, Inspire})</span> without per-hand redesign.<span> We improve upon the design of our <a class="cite" href="https://roamlab.github.io/ditto/" rel="noopener noreferrer" target="_blank">previous work</a><sup class="cite-num">1</sup> to support heterogeneous robot hands.<span class="sidenote" role="note"><sup class="cite-num">1</sup><a href="https://roamlab.github.io/ditto/" rel="noopener noreferrer" target="_blank">DITTO: Dexterous Interface for Transparent TeleOperation</a> (Palacios and Lee et al.)</span></span> Because it is an actuated exoskeleton, DITTO-X works in both directions: in <span class="dir-forward">forward teleoperation</span> the operator drives the robot, and in <span class="dir-reverse">reverse teleoperation</span> the robot drives the operator's fingers to match its own configuration. This enables:</p>
 <ul class="contributions">
 <li><strong class="dir-forward">Forward teleoperation</strong> <strong>with force and haptic feedback</strong> for high-quality data collection across diverse dexterous hands, yielding stronger policies for contact-rich manipulation.</li>
-<li><strong class="dir-reverse">Reverse teleoperation</strong> <strong>for fluent human intervention</strong>, whose corrections make DAgger effective at improving deployed policies.</li>
+<li><strong class="dir-reverse">Reverse teleoperation</strong> <strong>for fluent human intervention</strong>, whose corrections make <span><a class="cite" href="https://proceedings.mlr.press/v15/ross11a.html" rel="noopener noreferrer" target="_blank">DAgger</a><sup class="cite-num">2</sup><span class="sidenote" role="note"><sup class="cite-num">2</sup><a href="https://proceedings.mlr.press/v15/ross11a.html" rel="noopener noreferrer" target="_blank">A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</a> (Ross et al., 2011)</span></span> effective at improving deployed policies.</li>
 </ul>
 </div>
 <div class="overview-policies">
@@ -292,7 +293,7 @@
 <span class="chapter-number">03</span>
 <h2>DAgger with DITTO-X</h2>
 </div>
-<p>Interventions collected during deployment can be aggregated to improve the policy (DAgger; Ross et al., 2011). For each task and interface, we ran two rounds of DAgger with 20 intervention trajectories per round. Each round began with a full evaluation of the current policy; the operator then intervened at their discretion during deployment, successful interventions were added to the training set, and the policy was fine-tuned for 10 epochs. All DITTO-X interventions were collected with reverse teleoperation, and each interface supplied interventions only to its own policy.</p>
+<p>Interventions collected during deployment can be aggregated to improve the policy (DAgger; <a class="cite" href="https://proceedings.mlr.press/v15/ross11a.html" rel="noopener noreferrer" target="_blank">Ross et al., 2011</a>). For each task and interface, we ran two rounds of DAgger with 20 intervention trajectories per round. Each round began with a full evaluation of the current policy; the operator then intervened at their discretion during deployment, successful interventions were added to the training set, and the policy was fine-tuned for 10 epochs. All DITTO-X interventions were collected with reverse teleoperation, and each interface supplied interventions only to its own policy.</p>
 <h3 class="subsection-title">Correcting an Out-of-Distribution Failure</h3>
 <p>An evaluation episode in which the bowl lies outside the placements seen during pretraining. The sequence shows the failure of the pretrained policy, interventions with MANUS and with DITTO-X, and a rollout of the policy after DAgger fine-tuning.</p>
 <figure class="rt-highlight">

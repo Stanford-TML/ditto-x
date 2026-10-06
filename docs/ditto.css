@@ -8,6 +8,8 @@
 
 /* ---- header / authors ---------------------------------------------------- */
 .header .header-actions { margin-left: auto; }
+/* Link to the previous version (DITTO); dropped on small screens to keep the header to one row. */
+@media (max-width: 760px) { .header-actions .pill-prev { display: none; } }
 .author-list .author-break { flex-basis: 100%; height: 0; }
 .affiliation-logos { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2.4em; margin: 22px 0 0; }
 .affiliation-logos .logo-item { display: inline-flex; align-items: center; gap: .4em; text-decoration: none; }
@@ -157,6 +159,18 @@
 .project-summary strong.paper-name { color: var(--accent); }
 .project-summary .dir-forward { color: var(--dir-forward); }
 .project-summary .dir-reverse { color: var(--dir-reverse); }
+/* In-text citation, e.g. "DITTO¹", with the reference as a sidenote in the right margin (blog style).
+   Below 1400px there is no margin to hold it, so the note and its number hide and the underlined link carries the reference. */
+.chapter a.cite, .project-summary a.cite { color: inherit; text-decoration: underline dashed; text-decoration-color: #9a9894; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.chapter a.cite:hover, .project-summary a.cite:hover { text-decoration-color: currentColor; }
+.project-summary sup.cite-num { color: var(--muted); font-size: .7em; line-height: 0; margin-left: 1px; }
+.project-summary { position: relative; }
+.project-summary .sidenote { float: right; clear: right; width: 200px; margin: 4px -285px 0 0; position: relative;
+  padding-left: 14px; font-size: 13px; line-height: 1.5; color: var(--muted); text-align: left; }
+.project-summary .sidenote sup.cite-num { position: absolute; left: 0; top: .55em; margin: 0; }
+.project-summary .sidenote a { color: var(--ink); text-decoration: underline dashed; text-decoration-color: #9a9894; text-underline-offset: 3px; }
+.project-summary .sidenote a:hover { text-decoration-color: currentColor; }
+@media (max-width: 1399px) { .project-summary .sidenote, .project-summary sup.cite-num { display: none; } }
 
 /* ---- chapter 04: resources ---- */
 .resource-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 22px; }
@@ -238,3 +252,4 @@
 .chart-legend .swatch-ring { width: 9px; height: 9px; border-radius: 50%; border: 2px solid var(--c); background: #fcfcfb; margin-left: -12px; margin-right: 4px; }
 .study-chart .end-label { font-size: 12.5px; font-weight: 600; font-variant-numeric: tabular-nums; }
 .study-chart .end-label.muted { font-weight: 400; }
+
