@@ -44,11 +44,12 @@
 <script>
       // Touch screens have no hover: the first tap on a name opens its photo capsule, a second tap follows the link.
       (() => {
-        if (!matchMedia("(hover: none)").matches) return;
+        if (!matchMedia("(hover: none) and (min-width: 761px)").matches) return;   // as the CSS: no capsule at <= 760px
         let open = null;
         document.querySelectorAll(".author-list .au > a").forEach(a => a.addEventListener("click", e => {
           const au = a.parentElement;
           if (open !== au) { e.preventDefault(); open?.classList.remove("open"); au.classList.add("open"); open = au; }
+          else { au.classList.remove("open"); open = null; }   // second tap: follow the link and close behind it
         }));
         document.addEventListener("pointerdown", e => { if (open && !open.contains(e.target)) { open.classList.remove("open"); open = null; } });
       })();

@@ -255,7 +255,7 @@
 
 
 /* Author names open in place into a dark capsule with the author's photo (after eigendexplore.github.io): the photo grows
-   out of the name's left edge and the line makes room. Mouse: on hover or keyboard focus; touch: first tap (inline script). */
+   out of the name's left edge and the line makes room. Mouse: on hover (a click does not leave it open); keyboard: on focus; touch: first tap (inline script). */
 .author-list .au { position: relative; display: inline-flex; align-items: baseline; isolation: isolate; border-radius: 999px; padding: 0;
   transition: padding .38s cubic-bezier(.2,.8,.2,1); }
 .author-list .au::before { content: ""; position: absolute; z-index: -1; inset: -.3em 0; border-radius: 999px; pointer-events: none;
@@ -272,13 +272,16 @@
   font-weight: 600; letter-spacing: .02em; }
 .author-list .au a, .author-list .au sup { transition: color .3s ease; }
 .author-list .au sup { position: relative; top: -.75em; }   /* a flex item: raised by position, since vertical-align no longer applies */
-.author-list .au:is(:hover, :focus-within, .open) { padding: 0 .8em 0 .24em; }
-.author-list .au:is(:hover, :focus-within, .open)::before { opacity: 1; }
-.author-list .au:is(:hover, :focus-within, .open) .au-ph { width: 1.6em; margin-right: .45em; }
-.author-list .au:is(:hover, :focus-within, .open) :is(.au-ph img, .au-ini) { opacity: 1; transform: none; }
-.author-list .au:is(:hover, :focus-within, .open) a { color: #fff; text-decoration-color: transparent; }
-.author-list .au:is(:hover, :focus-within, .open) sup { color: rgba(255,255,255,.75); }
-@media (hover: none) { .author-list .au:hover:not(.open) { padding: 0; } .author-list .au:hover:not(.open)::before { opacity: 0; }
-  .author-list .au:hover:not(.open) .au-ph { width: 0; margin-right: 0; } .author-list .au:hover:not(.open) :is(.au-ph img, .au-ini) { opacity: 0; }
-  .author-list .au:hover:not(.open) a { color: var(--cardinal); } }
+/* Small screens (<= 760px): no capsule. The names would jump to new lines as it opens, so they stay plain links. */
+@media (min-width: 761px) {
+  .author-list .au:is(:hover, :has(a:focus-visible), .open) { padding: 0 .8em 0 .24em; }
+  .author-list .au:is(:hover, :has(a:focus-visible), .open)::before { opacity: 1; }
+  .author-list .au:is(:hover, :has(a:focus-visible), .open) .au-ph { width: 1.6em; margin-right: .45em; }
+  .author-list .au:is(:hover, :has(a:focus-visible), .open) :is(.au-ph img, .au-ini) { opacity: 1; transform: none; }
+  .author-list .au:is(:hover, :has(a:focus-visible), .open) a { color: #fff; text-decoration-color: transparent; }
+  .author-list .au:is(:hover, :has(a:focus-visible), .open) sup { color: rgba(255,255,255,.75); }
+  @media (hover: none) { .author-list .au:hover:not(.open) { padding: 0; } .author-list .au:hover:not(.open)::before { opacity: 0; }
+    .author-list .au:hover:not(.open) .au-ph { width: 0; margin-right: 0; } .author-list .au:hover:not(.open) :is(.au-ph img, .au-ini) { opacity: 0; }
+    .author-list .au:hover:not(.open) a { color: var(--cardinal); } }
+}
 @media (prefers-reduced-motion: reduce) { .author-list .au, .author-list .au * , .author-list .au::before { transition: none !important; } }
